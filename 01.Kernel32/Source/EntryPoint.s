@@ -46,10 +46,9 @@ PROTECTEDMODE:
     add esp, 12         ; PRINTMESSAGE 함수 호출
                         ; 삽입한 파라미터 제거
 
-    mov eax, 0xDEADBEEF
-    hlt
-
-    jmp $               ; 현재 위치에서 무한 루프 수행
+    ; CS 세그먼트 셀렉터를 커널 코드 디스크립터(0x08)로 변경하면서 C 커널 주소로 이동동
+    jmp dword 0x08: 0x10200     ; C 커널이 존재하는 0x10200으로 이동하여 C 커널 수행
+    
 
 ;;; 함수 코드 영역 ;;;
 ; 메시지를 출력하는 함수
