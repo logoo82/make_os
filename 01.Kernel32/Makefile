@@ -6,7 +6,7 @@ Kernel32.bin: Source/EntryPoint.s Source/Main.c
 
 	gcc -m32 -ffreestanding -fno-pic -c Source/Main.c -o Main.o
 
-	ld -m elf_i386 -Ttext 0x10200 -e Main --oformat binary -o Main.bin Main.o
+	ld -m elf_i386 -Ttext 0x10200 -e Main --oformat binary -N -o Main.bin Main.o
 
 	cat EntryPoint.bin Main.bin > Kernel32.bin
 

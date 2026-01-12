@@ -21,7 +21,7 @@ typedef int                 BOOL;
 #define NULL 0
 
 //1byte씩 정렬 선언
-// #pragma pack (push, 1)
+//#pragma pack (push, 1)
 
 typedef struct k_character_struct
 {

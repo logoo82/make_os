@@ -3,43 +3,46 @@
 void kPrintString(int iX, int iY, char* pcString);
 BOOL kInitializeKernel64Area(void);
 
-// void Main()
-// {
-//     kPrintString(0, 5, "C Kernel!!");
-
-//     kInitializeKernel64Area();
-//     kPrintString(0, 6, "IA-32e Kernel Area initialized complete");
-
-//     while(1);
-// }
-
-void Main()     
+void Main()
 {
-    int line = 4;
-    int size = sizeof(CHARACTER);
-    char msg[] = "SIZE=";
-    char* video = (char*)(0xB8000 + 160*line);
-
-    *video++ = 'S';
-    *video++ = 0x0A;
-    *video++ = 'I';
-    *video++ = 0x0A;
-    *video++ = 'Z';
-    *video++ = 0x0A;
-    *video++ = 'E';
-    *video++ = 0x0A;
-    *video++ = '=';
-    *video++ = 0x0A;
-    *video++ = '0' + sizeof(CHARACTER);
-    *video++ = 0x0A;
+    //배열을 인자로 넘겨야 배열이 스택에 들어가기 때문에 정상적으로 작동
     char str[] = "C Kernel!!";
-    kPrintString(0, 8, str);
+    kPrintString(0, 5, str);
 
-    kPrintString(0,9,"FIXED!!");
+    kInitializeKernel64Area();
+    char str2[] = "IA-32e Kernel Area initialized complete";
+    kPrintString(0, 6, str2);
 
     while(1);
-
 }
+
+// void Main()     
+// {
+//     int line = 4;
+//     int size = sizeof(CHARACTER);
+//     char msg[] = "SIZE=";
+//     char* video = (char*)(0xB8000 + 160*line);
+
+//     *video++ = 'S';
+//     *video++ = 0x0A;
+//     *video++ = 'I';
+//     *video++ = 0x0A;
+//     *video++ = 'Z';
+//     *video++ = 0x0A;
+//     *video++ = 'E';
+//     *video++ = 0x0A;
+//     *video++ = '=';
+//     *video++ = 0x0A;
+//     *video++ = '0' + sizeof(CHARACTER);
+//     *video++ = 0x0A;
+//     char str[] = "C Kernel!!";
+//     kPrintString(0, 8, str);
+
+//     kPrintString(0,9,"FIXED!!");
+
+//     while(1);
+
+// }
 
 //문자열 출력 함수
 void kPrintString(int iX, int iY, char* pcString)
