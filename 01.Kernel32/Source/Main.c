@@ -10,54 +10,26 @@ void Main()
 
     //배열을 인자로 넘겨야 배열이 스택에 들어가기 때문에 정상적으로 작동
     char str[] = "C Kernel Start,,,,,,,,,,Pass";
-    kPrintString(0, 3, str);
+    kPrintString(0, 4, str);
 
-    kInitializeKernel64Area();
+    //kInitializeKernel64Area();
     char str2[] = "IA-32e Kernel Area initialize,,,,,,,,,,";
-    kPrintString(0, 4, str2);
+    kPrintString(0, 5, str2);
     if(kInitializeKernel64Area() == FALSE)
     {
         char fail[] = "Fail";
-        kPrintString(45, 4, fail);
+        kPrintString(45, 5, fail);
     }
     char pass[] = "Pass";
-    kPrintString(45, 4, pass);
-    char IA32[] = "IA-32e Page Tables Initialize,,,,,,,,,,";
-    kPrintString(0, 5, IA32);
-    kInitializePageTables();
     kPrintString(45, 5, pass);
+    char IA32[] = "IA-32e Page Tables Initialize,,,,,,,,,,";
+    kPrintString(0, 6, IA32);
+    kInitializePageTables();
+    kPrintString(45, 6, pass);
 
 
     while(1);
 }
-
-// void Main()     
-// {
-//     int line = 4;
-//     int size = sizeof(CHARACTER);
-//     char msg[] = "SIZE=";
-//     char* video = (char*)(0xB8000 + 160*line);
-
-//     *video++ = 'S';
-//     *video++ = 0x0A;
-//     *video++ = 'I';
-//     *video++ = 0x0A;
-//     *video++ = 'Z';
-//     *video++ = 0x0A;
-//     *video++ = 'E';
-//     *video++ = 0x0A;
-//     *video++ = '=';
-//     *video++ = 0x0A;
-//     *video++ = '0' + sizeof(CHARACTER);
-//     *video++ = 0x0A;
-//     char str[] = "C Kernel!!";
-//     kPrintString(0, 8, str);
-
-//     kPrintString(0,9,"FIXED!!");
-
-//     while(1);
-
-// }
 
 //문자열 출력 함수
 void kPrintString(int iX, int iY, char* pcString)

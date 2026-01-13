@@ -1,5 +1,5 @@
-#ifndef __PAGH_H__
-#define __PAGH_H__
+#ifndef __PAGE_H__
+#define __PAGE_H__
 
 #include "Types.h"
 
@@ -56,4 +56,4 @@ typedef struct pageTableEntryStruct
 void kInitializePageTables(void);
 void kSetPageEntryData(PTENTRY* pstEntry, DWORD dwUpperBaseAddress, DWORD dwLowerBaseAddress, DWORD dwLowerFlags, DWORD dwUpperFlags);
 
-#endif /*__PAGH_H__*/
+#endif /*__PAGE_H__*/
