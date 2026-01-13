@@ -1,17 +1,32 @@
 #include "Types.h"
+#include "Page.h"
 
 void kPrintString(int iX, int iY, char* pcString);
 BOOL kInitializeKernel64Area(void);
 
 void Main()
 {
+    DWORD i;
+
     //배열을 인자로 넘겨야 배열이 스택에 들어가기 때문에 정상적으로 작동
-    char str[] = "C Kernel!!";
-    kPrintString(0, 5, str);
+    char str[] = "C Kernel Start,,,,,,,,,,Pass";
+    kPrintString(0, 3, str);
 
     kInitializeKernel64Area();
-    char str2[] = "IA-32e Kernel Area initialized complete";
-    kPrintString(0, 6, str2);
+    char str2[] = "IA-32e Kernel Area initialize,,,,,,,,,,";
+    kPrintString(0, 4, str2);
+    if(kInitializeKernel64Area() == FALSE)
+    {
+        char fail[] = "Fail";
+        kPrintString(45, 4, fail);
+    }
+    char pass[] = "Pass";
+    kPrintString(45, 4, pass);
+    char IA32[] = "IA-32e Page Tables Initialize,,,,,,,,,,";
+    kPrintString(0, 5, IA32);
+    kInitializePageTables();
+    kPrintString(45, 5, pass);
+
 
     while(1);
 }
