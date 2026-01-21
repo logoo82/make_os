@@ -38,13 +38,14 @@ START:
 
     ; 커널 코드 세그먼트를 0x00을 기준으로 하는 것으로 교체하고 EIP의 값을 0x00을 기준으로 재설정
     ; CS 세그먼트 셀렉터 : EIP
-    jmp dword 0x08: ( PROTECTEDMODE - $$ + 0x10000 )
+    ; 0x08에서 0x18로 변환
+    jmp dword 0x18: ( PROTECTEDMODE - $$ + 0x10000 )
 
 
 ;;; 보호 모드로 진입 ;;;
 [BITS 32]
 PROTECTEDMODE:
-    mov ax, 0x10        ; 보호 모드 커널용 데이터 세그먼트 디스크립터를 AX 레지스터에 저장
+    mov ax, 0x20        ; 보호 모드 커널용 데이터 세그먼트 디스크립터를 AX 레지스터에 저장 -> 0x10에서 0x20으로 전환
     mov ds, ax          ; DS 세그먼트 셀렉터에 설정
     mov es, ax          ; ES 세그먼트 셀렉터에 설정
     mov fs, ax          ; FS 세그먼트 셀렉터에 설정
@@ -63,8 +64,8 @@ PROTECTEDMODE:
     add esp, 12         ; PRINTMESSAGE 함수 호출
                         ; 삽입한 파라미터 제거
 
-    ; CS 세그먼트 셀렉터를 커널 코드 디스크립터(0x08)로 변경하면서 C 커널 주소로 이동동
-    jmp dword 0x08: 0x10200     ; C 커널이 존재하는 0x10200으로 이동하여 C 커널 수행
+    ; CS 세그먼트 셀렉터를 커널 코드 디스크립터(0x08 -> 0x18)로 변경하면서 C 커널 주소로 이동동
+    jmp dword 0x18: 0x10200     ; C 커널이 존재하는 0x10200으로 이동하여 C 커널 수행
     
 
 ;;; 함수 코드 영역 ;;;
