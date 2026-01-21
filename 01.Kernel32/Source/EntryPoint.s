@@ -140,7 +140,8 @@ GDTR:
     dw GDTEND - GDT - 1       ; 아래에 위치하는 GDT 테이블의 전체 크기
     dd ( GDT - $$ + 0x10000 ) ; 아래에 위치하는 GDT 테이블의 시작 어드레스
 
-; GDT 테이블 정의
+
+; IA-32e 모드, 보호 모드용 GDT 테이블 정의
 GDT:
     ; 널(NULL) 디스크립터, 반드시 0으로 초기화해야 함
     NULLDescriptor:
@@ -151,7 +152,25 @@ GDT:
         db 0x00
         db 0x00
 
-    ; 보호 모드 커널용 코드 세그먼트 디스크립터
+    ; IA-32e 모드 커널용 코드 세그먼트 디스크립터 (0x08)
+    IA_32eCODEDESCRIPTOR:
+        dw 0xFFFF       ; Limit [15:0]
+        dw 0x0000       ; Base [15:0]
+        db 0x00         ; Base [23:16]
+        db 0x9A         ; P=1, DPL=0, Code Segment, Execute/Read
+        db 0xAF         ; G=1, D=0, L=1, Limit[19:16]
+        db 0x00         ; Base [31:24]
+
+    ; IA-32e 모드 커널용 데이터 세그먼트 디스크립터(0x10)
+    IA_32eDATADESCRIPTOR:
+        dw 0xFFFF       ; Limit [15:0]
+        dw 0x0000       ; Base [15:0]
+        db 0x00         ; Base [23:16]
+        db 0x92         ; P=1, DPL=0, Data Segment, Read/Write
+        db 0xAF         ; G=1, D=0, L=1, Limit[19:16]
+        db 0x00         ; Base [31:24]
+
+    ; 보호 모드 커널용 코드 세그먼트 디스크립터(0xq8)
     CODEDESCRIPTOR:
         dw 0xFFFF       ; Limit [15:0]
         dw 0x0000       ; Base [15:0]
@@ -160,8 +179,7 @@ GDT:
         db 0xCF         ; G=1, D=1, L=0, Limit[19:16]
         db 0x00         ; Base [31:24]
 
-    ; 보호 모드 커널용 데이터 세그먼트 디스크립터
-    ; 보호 모드 커널용 데이터 세그먼트 디스크립터
+    ; 보호 모드 커널용 데이터 세그먼트 디스크립터(0x20)
     DATADESCRIPTOR:
         dw 0xFFFF       ; Limit [15:0]
         dw 0x0000       ; Base [15:0]
