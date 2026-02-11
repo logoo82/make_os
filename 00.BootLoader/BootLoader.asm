@@ -8,6 +8,7 @@ jmp 0x07C0:START    ; CS 세그먼트 레지스터에 0x07C0을 복사하면서,
 ;;; OS에 관련된 환경 설정 값 ;;;
 TOTALSECTORCOUNT: dw 1024      ; 부트 로더를 제외한 OS 이미지의 크기
                             ; 최대 1152 섹터(0x90000byte)까지 가능
+KERNEL64SECTORCOUNT: dw 1024
 
 
 ;;; 코드 영역 ;;;
